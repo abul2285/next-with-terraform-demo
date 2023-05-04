@@ -17,8 +17,8 @@ resource "aws_ecs_task_definition" "flask_app_demo" {
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5000,
-        "hostPort": 5000
+        "containerPort": 3000,
+        "hostPort": 3000
       }
     ],
     "logConfiguration": {
@@ -61,7 +61,7 @@ resource "aws_ecs_service" "flask_app_demo" {
   load_balancer {
     target_group_arn = aws_lb_target_group.flask_app_demo.arn
     container_name   = "flask-app-demo"
-    container_port   = 5000
+    container_port   = 3000
   }
 }
 
@@ -90,7 +90,7 @@ resource "aws_security_group" "flask_app_demo" {
 
 resource "aws_lb_target_group" "flask_app_demo" {
   name        = "flask-app-demo"
-  port        = 5000
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
